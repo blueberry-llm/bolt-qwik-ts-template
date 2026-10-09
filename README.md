@@ -1,71 +1,54 @@
-# Qwik Starter For Stackblitz ⚡️ (qwik.new)
+# Qwik Template
 
-- [Qwik Docs](https://qwik.dev/)
-- [Discord](https://qwik.dev/chat)
-- [Qwik GitHub](https://github.com/QwikDev/qwik)
-- [@QwikDev](https://twitter.com/QwikDev)
-- [Vite](https://vitejs.dev/)
+A starter template for [bolt.diy](https://github.com/stackblitz-labs/bolt.diy).
 
----
+## Purpose
 
-## Project Structure
+This template is designed for use with **<https://github.com/stackblitz-labs/bolt.diy>**. bolt.diy fetches
+these files at runtime and imports them into a fresh WebContainer project when you ask for a Qwik project,
+so everything here needs to install and build with no extra setup.
 
-This project is using Qwik with [QwikCity](https://qwik.dev/qwikcity/overview/). QwikCity is just an extra set of tools on top of Qwik to make it easier to build a full site, including directory-based routing, layouts, and more.
+Modified by [Dustin Loring](https://github.com/Dustinwloring1988) (Dustinwloring1988) in October 2026.
 
-Inside your project, you'll see the following directory structure:
+## Stack
 
-```
-├── public/
-│   └── ...
-└── src/
-    ├── components/
-    │   └── ...
-    └── routes/
-        └── ...
-```
+| Package | Version |
+| --- | --- |
+| @builder.io/qwik | ^1.20.2 |
+| @builder.io/qwik-city | ^1.20.2 |
+| Vite | ^7.3.7 |
+| TypeScript | ^6.0.3 |
 
-- `src/routes`: Provides the directory-based routing, which can include a hierarchy of `layout.tsx` layout files, and an `index.tsx` file as the page. Additionally, `index.ts` files are endpoints. Please see the [routing docs](https://qwik.dev/qwikcity/routing/overview/) for more info.
+Node 18.17.0 || ^20.3.0 || >=21.0.0 is required.
 
-- `src/components`: Recommended directory for components.
+## Commands
 
-- `public`: Any static assets, like images, can be placed in the public directory. Please see the [Vite public directory](https://vitejs.dev/guide/assets.html#the-public-directory) for more info.
-
-## Add Integrations and deployment
-
-Use the `pnpm qwik add` command to add additional integrations. Some examples of integrations includes: Cloudflare, Netlify or Express Server, and the [Static Site Generator (SSG)](https://qwik.dev/qwikcity/guides/static-site-generation/).
-
-```shell
-pnpm qwik add # or `pnpm qwik add`
+```bash
+npm install   # install dependencies
+npm run dev   # vite --mode ssr — dev server
+npm run build # qwik build — production build
+npm run preview # qwik build preview && vite preview --open
+npm run typecheck # tsc --incremental --noEmit
 ```
 
-## Development
+## About this template
 
-Development mode uses [Vite's development server](https://vitejs.dev/). The `dev` command will server-side render (SSR) the output during development.
+A Qwik City project with SSR mode enabled. Qwik's fine-grained reactivity and lazy-loading means the
+initial bundle is small. Qwik's peer range for Vite is `>=5 <8`, so Vite is held at 7.3.7.
 
-```shell
-npm start # or `pnpm start`
-```
+## Upgraded to Qwik 1.20.2, Vite 7.3.7 (October 2026)
 
-> Note: during dev mode, Vite may request a significant number of `.js` files. This does not represent a Qwik production build.
+Moved from older Qwik and Vite 5/6. Each step was verified:
+- @builder.io/qwik and @builder.io/qwik-city updated to 1.20.2 (latest 1.x)
+- Vite was held at ^7.3.7 because Qwik's peer range explicitly caps Vite at `>=5 <8`. Upgrading Vite
+  to 8 would break the build due to peer dependency conflicts.
+- TypeScript was updated to ^6.0.3 (Qwik 1.20's peer range).
 
-## Preview
+Vite 7.3.7 is the latest compatible with Qwik 1.20.2. Any Vite 8 upgrade would require Qwik to release
+a new version with updated peer ranges, which was not available in October 2026.
 
-The preview command will create a production build of the client modules, a production build of `src/entry.preview.tsx`, and run a local server. The preview server is only for convenience to preview a production build locally and should not be used as a production server.
+## Verification
 
-```shell
-pnpm preview # or `pnpm preview`
-```
-
-## Production
-
-The production build will generate client and server modules by running both client and server build commands. The build command will use Typescript to run a type check on the source code.
-
-```shell
-pnpm build # or `pnpm build`
-```
-
-## Static Site Generator (Node.js)
-
-```shell
-npm run build.server
-```
+- `npm install` and `npm run build` pass without errors
+- Confirmed the dev server starts and the Qwik lazy-loading works
+- `npm run build` produces a production SSR build
